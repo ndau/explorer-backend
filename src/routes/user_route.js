@@ -17,12 +17,6 @@ const upload = multer({
 });
 
 const router = express.Router()
-// router.get('/user/user-profile-details',auth,User.userProfileDetails)
-// router.post('/user/register', User.registerUser)
-// router.post('/user/login', User.loginUser)
-// router.post('/user/forgot-password', User.forgotPassword)
-// router.put('/user/reset-password', User.resetPassword)
-
 
 // POSTGRES ROUTES
 router.get('/user/user-profile-details',auth,User.PGuserProfileDetails)

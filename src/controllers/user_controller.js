@@ -290,8 +290,8 @@ exports.PGforgotPassword = async (req, res, next) => {
           from: `${hostEmail}`,
           subject: "Reset Password",
           text:
-            "Thank you for registering for the ndau Blockchain Explorer. Please verify your email to ensure you can access all the features.\n\n" +
-            "Your Verification Link is: " +
+            "Please follow the link given below to reset your password.\n\n" +
+            "Your Password Reset Link is: " +
             link,
         };
         await sendEmail(mailOptions);
