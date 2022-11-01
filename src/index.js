@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const morgan = require("morgan");
-const pg = require("./src/pg");
+const pg = require("./pg");
 // const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(morgan("dev"));
@@ -20,11 +20,11 @@ app.use(
 );
 
 let routes = {
-  userRouter: require("./src/routes/user_route"),
-  richListRouter: require("./src/routes/richlist_route"),
+  userRouter: require("./routes/user_route"),
+  richListRouter: require("./routes/richlist_route"),
 };
 
-require("./src/controllers/richlist_cron");
+require("./controllers/richlist_cron");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,7 +46,7 @@ app.use("/api", routes.richListRouter);
 
 //Server Port
 
-const port = process.env.PORT || 3001;
+const port = 3001;
 app.listen(port, () => console.log(`listening on port ${port}`));
 let moment = require("moment");
 console.log("locale: " + moment("2022-02-13").locale());
