@@ -41,28 +41,48 @@ spec:
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: explorer-db
+                  name: explorer
                   key: DB_HOST
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: explorer-db
+                  name: explorer
                   key: DB_PORT
             - name: DB_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: explorer-db
+                  name: explorer
                   key: DB_DATABASE
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: explorer-db
+                  name: explorer
                   key: DB_USERNAME
             - name: DB_PASSWORD     
               valueFrom:
                 secretKeyRef:
-                  name: explorer-db
-                  key: DB_PASSWORD    
+                  name: explorer
+                  key: DB_PASSWORD
+            - name: FRONT_END_URL
+              valueFrom:
+                secretKeyRef:
+                  name: explorer
+                  key: FRONT_END_URL
+            - name: HOST_USER
+              valueFrom:
+                secretKeyRef:
+                  name: explorer
+                  key: HOST_USER
+            - name: HOST_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: explorer
+                  key: HOST_PASS
+            - name: TOKEN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: explorer
+                  key: TOKEN_KEY      
 {{- if hasKey .Values "livenessProbe" }}
           livenessProbe:
 {{ toYaml .Values.livenessProbe | trim | indent 12 }}

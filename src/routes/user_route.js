@@ -4,31 +4,29 @@ const auth = require('../middleware/auth');
 let multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/creatives')
-    },
-    filename: (req, file, cb) => {
-        cb(null, new Date().getTime() + '-' + file.originalname)
-    }
-})
-
-const upload = multer({
-    storage: storage
+  destination: (req, file, cb) => {
+    cb(null, './uploads/creatives');
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().getTime() + '-' + file.originalname);
+  },
 });
 
-const router = express.Router()
+const upload = multer({
+  storage: storage,
+});
+
+const router = express.Router();
 
 // POSTGRES ROUTES
-router.get('/user/user-profile-details',auth,User.PGuserProfileDetails)
-router.post('/user/register', User.PGregisterUser)
-router.post('/user/login', User.PGloginUser)
-router.post('/user/forgot-password', User.PGforgotPassword)
-router.put('/user/reset-password', User.PGresetPassword)
-router.put('/user/verify', User.verifyUser)
-router.post('/bookmark/bookmark',auth,User.createBookmark);
-router.get('/user/bookmarks',auth,User.getBookmarks)
-router.put
-('/user/SpecificBookmarks',auth,User.getSpecificBookmarks)
-
+router.get('/user-profile-details', auth, User.PGuserProfileDetails);
+router.post('/register', User.PGregisterUser);
+router.post('/login', User.PGloginUser);
+router.post('/forgot-password', User.PGforgotPassword);
+router.put('/reset-password', User.PGresetPassword);
+router.put('/verify', User.verifyUser);
+router.post('/bookmark', auth, User.createBookmark);
+router.get('/bookmarks', auth, User.getBookmarks);
+router.put('/SpecificBookmarks', auth, User.getSpecificBookmarks);
 
 module.exports = router;

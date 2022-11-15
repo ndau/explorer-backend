@@ -44,22 +44,35 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  securePort: 443
   targetPort: 3001
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
-    ingress.kubernetes.io/ssl-redirect: "false"
-    kubernetes.io/tls-acme: "false"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/limit-rpm: "600"
     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "120"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "7200"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "7200"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "ndau.tech"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://*.ndau.tech; img-src 'self'; style-src 'self' 'unsafe-inline'; upgrade-insecure-requests;";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+      more_set_headers "Feature-Policy: camera 'none'; microphone 'none'; geolocation 'none'; encrypted-media 'none'; payment 'none'; speaker 'none'; usb 'none';";
+
   hosts:
-    - host: explorer-backend.ndau.io
+    - host: explorer-backend.ndau.tech
+      paths: ["/"]
+  tls:
+    - secretName: explorer-backend-tls
+      hosts:
+        - explorer-backend.ndau.tech
 
 resources:
   limits:

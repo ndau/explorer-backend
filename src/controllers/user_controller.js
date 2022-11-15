@@ -199,8 +199,8 @@ sendUserVerificationRequest = (email) => {
           "Your Verification Link is: " +
           link,
       };
-      console.log(link);
-      await sendEmail(mailOptions);
+      console.log(`Sending email with the link...: ${link}`);
+      sendEmail(mailOptions);
     });
   } catch (err) {
     next(err);
@@ -294,7 +294,8 @@ exports.PGforgotPassword = async (req, res, next) => {
             "Your Password Reset Link is: " +
             link,
         };
-        await sendEmail(mailOptions);
+        console.log(`Sending email with the link to change password...: ${token}`);
+        sendEmail(mailOptions);
         res.status(200).json({
           status: true,
           message: "Reset Password Link Sent",

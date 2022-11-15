@@ -41,7 +41,7 @@ app.use("/uploads", express.static("uploads"));
 //   .then(() => console.log("Database connected!"))
 //   .catch((err) => console.log("Cannot connect to the database", err));
 
-app.use("/api", routes.userRouter);
+app.use("/api/user", routes.userRouter);
 app.use("/api", routes.richListRouter);
 
 //Server Port
